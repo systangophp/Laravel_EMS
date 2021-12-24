@@ -17,6 +17,16 @@ class Skill extends Controller
         else
         return view('/skill',["Skills" => '' ]);
     }
+    public function webGetSkill($offset, $limit){
+
+        $data = Skil::all();
+        $data = $data->skip($offset)->take($limit);
+        //return $data;
+        if($data->count() > 0)
+        return view('/skill',["Skills" => $data ]);
+        else
+        return view('/skill',["Skills" => '' ]);
+    }
 
     public function webEditSkills($id){
         
@@ -91,6 +101,23 @@ class Skill extends Controller
     }
     public function apiGetSkills(){
         $data = Skil::all();
+        if($data){
+            return response()->json([
+                'status'   => 'success',
+                'data' => $data
+             ],200);
+        }else{
+            return response()->json([
+                'status'   => 'error',
+                'data' => $data
+             ],200);
+        }
+    }
+
+    public function apiGetSkill($offset,$limit){
+        $data = New Skil();
+        $data = $data->skip($offset)->take($limit)->get();
+        return $data;
         if($data){
             return response()->json([
                 'status'   => 'success',

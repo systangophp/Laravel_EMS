@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:sanctum'],function (){
     /* Skill API */
     Route::get('/skills',[Skill::class,'apiGetSkills']);
+    Route::get('/skills/{offset}/{limit}',[Skill::class,'apiGetSkill']);
     Route::get('/skills/{id}',[Skill::class,'apiGetSkillsById']);
     Route::post('/skill',[Skill::class,'apiAddSkills']);
     Route::put('/skill/{id}',[Skill::class,'apiEditSkills']);
