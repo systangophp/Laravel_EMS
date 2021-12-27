@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Skill;
 use App\Http\Controllers\Employees;
+use App\Http\Controllers\Projects;
 use App\Http\Controllers\test;
 
 
@@ -45,7 +46,14 @@ Route::get('/addSkillForEmployee/{id}',[Employees::class,'showSkillsForEmployee'
 Route::post('/assignSkillToEmp',[Employees::class,'assignSkillToEmp']);
 //Route::get('/addSkillForEmployee/{id}',[Employees::class,'showSkillsForEmployee']);
 
+/* Projects */
+Route::get('/project',[Projects::class,'webGetProjects']);
+Route::get('/project/add',[Projects::class,'showAddForm']);
+Route::post('/project/addProject',[Projects::class,'webAddProjects']);
 
+Route::get('editproject/{id}',[Projects::class,'webEditProjects']);
+Route::get('deleteproject/{id}',[Projects::class,'webDeleteProjects']);
+Route::post('saveEditProject',[Projects::class,'webSaveEditProjects']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

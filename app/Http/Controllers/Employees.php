@@ -165,9 +165,29 @@ class Employees extends Controller
     /* API */
     public function apiGetEmployees(){
         $data = Employee::all();
+        $count = $data->count();
         if($data){
             return response()->json([
                 'status'   => 'success',
+                'totalRecords' => $count, 
+                'data' => $data
+             ],200);
+        }else{
+            return response()->json([
+                'status'   => 'error',
+                'data' => $data
+             ],200);
+        }
+    }
+    public function apiGetEmployee($offset,$limit){
+        $data = New Employee();
+        $count = $data->all()->count();
+        $data = $data->skip($offset)->take($limit)->get();
+        
+        if($data){
+            return response()->json([
+                'status'   => 'success',
+                'totalRecords' => $count, 
                 'data' => $data
              ],200);
         }else{

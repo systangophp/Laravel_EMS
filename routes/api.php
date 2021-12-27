@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Skill;
 use App\Http\Controllers\Employees;
+use App\Http\Controllers\Projects;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,8 +31,21 @@ Route::group(['middleware' => 'auth:sanctum'],function (){
 
     /* Employee API */
     Route::get('/employees',[Employees::class,'apiGetEmployees']);
+    Route::get('/employees/{offset}/{limit}',[Employees::class,'apiGetEmployee']);
     Route::get('/employees/{id}',[Employees::class,'apiGetEmployeesById']);
     Route::post('/employees',[Employees::class,'apiAddEmployee']);
     Route::put('/employees/{id}',[Employees::class,'apiEditEmployee']);
     Route::delete('/employees/{id}',[Employees::class,'apiDeleteEmployee']);
+
+    /* Project API */
+     
+    Route::get('/projects',[Projects::class,'apiGetProjects']);
+    Route::get('/projects/{offset}/{limit}',[Projects::class,'apiGetProjects']);
+    Route::get('/projects/{id}',[Projects::class,'apiGetProjectsById']);
+    Route::post('/projects',[Projects::class,'apiAddProject']);
+    Route::put('/projects/{id}',[Projects::class,'apiEditProject']);
+    Route::delete('/projects/{id}',[Projects::class,'apiDeleteProjects']);
+
+
+    
 });
