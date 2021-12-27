@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Skill;
 use App\Http\Controllers\Employees;
 use App\Http\Controllers\Projects;
+use App\Http\Controllers\Clients;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -45,6 +46,17 @@ Route::group(['middleware' => 'auth:sanctum'],function (){
     Route::post('/projects',[Projects::class,'apiAddProject']);
     Route::put('/projects/{id}',[Projects::class,'apiEditProject']);
     Route::delete('/projects/{id}',[Projects::class,'apiDeleteProjects']);
+
+    /* Client API */
+     
+    Route::get('/clients',[Clients::class,'apiGetClients']);
+    Route::get('/clients/{offset}/{limit}',[Clients::class,'apiGetClients']);
+    Route::get('/clients/{id}',[Clients::class,'apiGetClientsById']);
+    Route::post('/clients',[Clients::class,'apiAddClient']);
+    Route::put('/clients/{id}',[Clients::class,'apiEditClient']);
+    Route::delete('/clients/{id}',[Clients::class,'apiDeleteClients']);
+
+    
 
 
     
