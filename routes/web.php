@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Skill;
 use App\Http\Controllers\Employees;
 use App\Http\Controllers\Projects;
+use App\Http\Controllers\Clients;
 use App\Http\Controllers\test;
 
 
@@ -54,6 +55,15 @@ Route::post('/project/addProject',[Projects::class,'webAddProjects']);
 Route::get('editproject/{id}',[Projects::class,'webEditProjects']);
 Route::get('deleteproject/{id}',[Projects::class,'webDeleteProjects']);
 Route::post('saveEditProject',[Projects::class,'webSaveEditProjects']);
+
+/* Projects */
+Route::get('/client',[Clients::class,'webGetClient']);
+Route::get('/client/add',[Clients::class,'showAddForm']);
+Route::post('/client/addCroject',[Clients::class,'webClients']);
+
+Route::get('editclient/{id}',[Clients::class,'webEditClients']);
+Route::get('deleteclient/{id}',[Clients::class,'webDeleteClients']);
+Route::post('saveEditClient',[Clients::class,'webSaveEditClients']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
