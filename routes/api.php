@@ -22,15 +22,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'auth:sanctum'],function (){
+
+
     /* Skill API */
     Route::get('/skills',[Skill::class,'apiGetSkills']);
+
     Route::get('/skills/{offset}/{limit}',[Skill::class,'apiGetSkill']);
+   
+
     Route::get('/skills/{id}',[Skill::class,'apiGetSkillsById']);
     Route::post('/skill',[Skill::class,'apiAddSkills']);
     Route::put('/skill/{id}',[Skill::class,'apiEditSkills']);
     Route::delete('/skill/{id}',[Skill::class,'apiDeleteSkills']);
 
-    /* Employee API */
+    // /* Employee API */
     Route::get('/employees',[Employees::class,'apiGetEmployees']);
     Route::get('/employees/{offset}/{limit}',[Employees::class,'apiGetEmployee']);
     Route::get('/employees/{id}',[Employees::class,'apiGetEmployeesById']);
@@ -38,7 +43,7 @@ Route::group(['middleware' => 'auth:sanctum'],function (){
     Route::put('/employees/{id}',[Employees::class,'apiEditEmployee']);
     Route::delete('/employees/{id}',[Employees::class,'apiDeleteEmployee']);
 
-    /* Project API */
+    // /* Project API */
      
     Route::get('/projects',[Projects::class,'apiGetProjects']);
     Route::get('/projects/{offset}/{limit}',[Projects::class,'apiGetProjects']);
@@ -47,7 +52,7 @@ Route::group(['middleware' => 'auth:sanctum'],function (){
     Route::put('/projects/{id}',[Projects::class,'apiEditProject']);
     Route::delete('/projects/{id}',[Projects::class,'apiDeleteProjects']);
 
-    /* Client API */
+    // /* Client API */
      
     Route::get('/clients',[Clients::class,'apiGetClients']);
     Route::get('/clients/{offset}/{limit}',[Clients::class,'apiGetClients']);
@@ -56,6 +61,10 @@ Route::group(['middleware' => 'auth:sanctum'],function (){
     Route::put('/clients/{id}',[Clients::class,'apiEditClient']);
     Route::delete('/clients/{id}',[Clients::class,'apiDeleteClients']);
 
+    // /* RelationShip */
+    Route::get('/employee/{id}/skills',[Employees::class,'apiShowSkillsForEmployee']);
+    Route::get('/skill/{id}/employee',[Skill::class,'apiShowEmployeesForSkills']);
+    Route::post('/employee_skill/{id}',[Employees::class,'apiAssignSkillToEmployee']);
     
 
 

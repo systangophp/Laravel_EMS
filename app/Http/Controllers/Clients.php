@@ -29,7 +29,7 @@ class Clients extends Controller
     public function showAddForm(){
 
         
-        return view('/client/client',["Clients" => '' ]);
+        return view('/client/client',["clients" => '' ]);
     }
 
     public function webAddClients(Request $request){
@@ -73,7 +73,7 @@ class Clients extends Controller
         $response = $data->delete();       
 
         if($response){
-            return redirect('/skill')->with('message', 'Record was successfully Deleted!');;
+            return redirect('/client')->with('message', 'Record was successfully Deleted!');;
         }
         
     }

@@ -18,8 +18,9 @@
                            
                             @php 
                               $empskills = json_decode($empskills);
+                              $empskillslevels = json_decode($empskillslevel,true);
                             @endphp
-                            <input type="hidden" name="id" class="form-control" id="id" value="{{$id}}" >
+                            <input type="hidden" name="employee_id" class="form-control" id="employee_id" value="{{$id}}" >
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Skill</label>
                                 <!-- <select class="custom-select"  multiple data-live-search="true" name ="Skill[]">
@@ -43,26 +44,30 @@
                     </thead>
                     <tbody>
                         @php
-                            $i = 1
+                            $i = 1;
+                            print_r($empskillslevels)
+                          
                         @endphp
+                        
                         @foreach($skills as $skill)
+                        
                         <tr>
                         <th scope="row">{{$i}}</th>
                         <td>{{$skill->skill_name}}</td>
                         <td><div class="form-check">
-                                <input class="form-check-input" type="radio" name="{{$skill->id}}" value="1" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio"  name="{{$skill->id}}" {{(isset($empskillslevels[$skill->id]) && $empskillslevels[$skill->id]=='Beginner') ? 'checked' : '' }} value="Beginner" id="flexRadioDefault1">
                             </div>
                         </td>
                         <td><div class="form-check">
-                                <input class="form-check-input" type="radio" name="{{$skill->id}}" value="2" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="{{$skill->id}}" {{(isset($empskillslevels[$skill->id]) && $empskillslevels[$skill->id]=='Intermediate') ? 'checked' : '' }} value="Intermediate" id="flexRadioDefault1">
                             </div>
                         </td>
                         <td><div class="form-check">
-                                <input class="form-check-input" type="radio" name="{{$skill->id}}" value="2" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="{{$skill->id}}" {{(isset($empskillslevels[$skill->id]) && $empskillslevels[$skill->id]=='Expert') ? 'checked' : '' }}  value="Expert" id="flexRadioDefault1">
                             </div>
                         </td>
                         <td><div class="form-check">
-                                <input class="form-check-input" type="radio" name="{{$skill->id}}" value="2" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="{{$skill->id}}" {{(isset($empskillslevels[$skill->id]) && $empskillslevels[$skill->id]=='Supper Expert') ? 'checked' : '' }} value="Supper Expert" id="flexRadioDefault1">
                             </div>
                         </td>
                         <!-- <td><div class="form-check">

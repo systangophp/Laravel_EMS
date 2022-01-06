@@ -263,6 +263,35 @@ class Skill extends Controller
         
     }
 
+    //Relationship
+    public function apiShowEmployeesForSkills($id){
+
+        //dd($id);
+
+        $skills = Skil::find($id);
+        
+        $empDataWithSkill['Skills'] = $skills;
+        $skillId = [];
+        $skillLevel = [];
+        if($skills->count() > 0){
+            $empskills = $skills->Employees;
+            $skillCount = $empskills->count();
+            return response()->json([
+                'status'   => 'Success',
+                'totalRecords' => $skillCount, 
+                'data' => $empDataWithSkill
+             ],200);
+            
+        }else{
+            $skillId = [];
+            return response()->json([
+                'status'   => 'error', 
+                'Message'  => 'Empty Records',
+                'data' => []
+             ],200);
+        }
+    }
+
 
 
 }

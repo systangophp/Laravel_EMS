@@ -1,7 +1,7 @@
 <x-app-layout>
 <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Projects') }}
+            {{ __('Clients') }}
         </h2>
        
     </x-slot>
@@ -18,43 +18,34 @@
                   
                     @if($clients=='')
                     
-                        <form action="{{url('/project/addProject')}}" method="post">
+                        <form action="{{url('/client/addClient')}}" method="post">
                             @csrf
                             <div class="form-group">
-
-                                <label for="exampleInputEmail1">Project Name</label>
-                                <input type="text" name="project_name" class="form-control" id="project_name" >
+                                <label for="exampleInputEmail1">First Name</label>
+                                <input type="text" name="first_name" class="form-control" id="first_name" >
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Last Name</label>
+                                <input type="text" name="last_name" class="form-control" id="last_name" >
                                
                             </div>
-                            
                             <div class="form-group">
-                                <label for="exampleFormControlSelect1">Technology</label>
-                                <select name="technology" class="form-control" id="exampleFormControlSelect1">
-                                    <option value="Wordpress">Wordpress</option>
-                                    <option value="Zoho">Zoho</option>
-                                    <option value="Laravel">Laravel</option>
-                                    <option value="Creator">Creator</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <label for="exampleInputEmail1">Company Name</label>
+                                <input type="text" name="company_name" class="form-control" id="company_name" >
+                               
                             </div>
 
-                            <!-- <div class="form-group">
-                                <label for="exampleInputPassword1">Technology</label>
-                                <input type="text" name="technology" class="form-control" id="technology">
-                            </div> -->
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input type="email" name="email" class="form-control" id="email" >
+                               
+                            </div>
 
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Estimate Hours</label>
-                                <input type="text" name="estimate_hours" class="form-control" id="estimate_hours">
+                                <label for="exampleInputEmail1">Phone</label>
+                                <input type="text" name="phone" class="form-control" id="phone" >
+                               
                             </div>
-                            <!-- <div class="form-group">
-                                <label for="exampleInputPassword1">Status</label>
-                                <input type="text" name="status" class="form-control" id="status">
-                            </div> -->
-                            <!-- <div class="form-group">
-                                <label for="exampleInputPassword1">Logged Hours</label>
-                                <input type="text" name="logged_hours" class="form-control" id="logged_hours">
-                            </div> -->
                             
                             <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -62,7 +53,7 @@
                     </div>
                 </div>
                
-                <a href="{{url('project\add')}}"><button style="float: right;margin-bottom: 10px;margin-right: 25px;background: #343a40;" type="button" class="btn btn-secondary btn-lg">Add New</button></a>
+                <a href="{{url('client\add')}}"><button style="float: right;margin-bottom: 10px;margin-right: 25px;background: #343a40;" type="button" class="btn btn-secondary btn-lg">Add New</button></a>
                 @if(Session::has('message'))
 
                 <div class="alert alert-success" role="alert" style="max-width: 76%">

@@ -37,7 +37,6 @@ Route::post('saveEditSkill',[Skill::class,'webSaveEditSkills']);
 Route::get('/employee',[Employees::class,'webGetEmployee']);
 Route::get('/employee/add',[Employees::class,'showAddForm']);
 Route::post('/employee/addEmp',[Employees::class,'webAddEmployees']);
-
 Route::get('editEmployee/{id}',[Employees::class,'webEditEmployees']);
 Route::get('deleteEmployee/{id}',[Employees::class,'webDeleteSkills']);
 Route::post('saveEditEmployee',[Employees::class,'webSaveEditEmployees']);
@@ -51,16 +50,14 @@ Route::post('/assignSkillToEmp',[Employees::class,'assignSkillToEmp']);
 Route::get('/project',[Projects::class,'webGetProjects']);
 Route::get('/project/add',[Projects::class,'showAddForm']);
 Route::post('/project/addProject',[Projects::class,'webAddProjects']);
-
 Route::get('editproject/{id}',[Projects::class,'webEditProjects']);
 Route::get('deleteproject/{id}',[Projects::class,'webDeleteProjects']);
 Route::post('saveEditProject',[Projects::class,'webSaveEditProjects']);
 
-/* Projects */
+/* Client */
 Route::get('/client',[Clients::class,'webGetClient']);
 Route::get('/client/add',[Clients::class,'showAddForm']);
-Route::post('/client/addCroject',[Clients::class,'webClients']);
-
+Route::post('/client/addClient',[Clients::class,'webAddClients']);
 Route::get('editclient/{id}',[Clients::class,'webEditClients']);
 Route::get('deleteclient/{id}',[Clients::class,'webDeleteClients']);
 Route::post('saveEditClient',[Clients::class,'webSaveEditClients']);

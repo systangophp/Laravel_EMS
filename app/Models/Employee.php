@@ -16,6 +16,6 @@ class Employee extends Model
     public function skills()
     {
         
-        return $this->belongsToMany(Skil::class, 'employee_skill');
+        return $this->belongsToMany(Skil::class, 'employee_skill')->as('skillLevel')->withPivot('level');
     }
 }

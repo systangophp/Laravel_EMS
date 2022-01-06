@@ -11,28 +11,28 @@ use Illuminate\Support\Facades\Validator;
 class Employees extends Controller
 {
 
-    /*Web*/
-    //AddSkillsForEmployee
-
     public function showSkillsForEmployee($id){
 
         $skills = Employee::find($id);
         $skillId = [];
+        $skillLevel = [];
         if($skills->count() > 0){
             $empskills = $skills->skills;
             foreach($empskills as $empskill){
-                $skillId []=$empskill->id; 
+                
+                $skillId []=$empskill->id;
+                $skillLevel [$empskill->id] =$empskill->skillLevel->level;
             }
-            
+            //return $skillLevel;
         }else
         $skillId = [];
          
         $data = Skil::all();
         //return $data;
         if($data->count() > 0)
-        return view('/employee/addSkillForEmployee',["skills" => $data, "id" => $id,"empskills" => json_encode($skillId)]);
+        return view('/employee/addSkillForEmployee',["skills" => $data, "id" => $id,"empskills" => json_encode($skillId), "empskillslevel" => json_encode($skillLevel)]);
         else
-        return view('/employee/addSkillForEmployee',["skills" => '' ]);
+        return view('/employee/addSkillForEmployee',["skills" => '', "id" => '',"empskills" => '', "empskillslevel" => json_encode($skillLevel) ]);
     }
 
     public function assignSkillToEmpOld(Request $request){
@@ -54,54 +54,33 @@ class Employees extends Controller
             $addSkill->employee_id = $emp_id;
             $addSkill->skil_id = $sk;
             $addSkill->save();
-            
-
         }
         //return $addSkill;
         $request->session()->flash('message', 'Record was successfully Added!');
         return redirect('/employee');
-
-
-        
-
-        
-        
     }
 
     public function assignSkillToEmp(Request $request){
 
+        $emp_id = $request->employee_id;
+       // $data = $request->all();
+        $records_data = $request->except('_token','employee_id');
         
-        foreach($request as $id=>$value){
-            
+        $data = EmployeeSkill::where('employee_id', $emp_id)->get();
+        if($data->count() > 0){
+            $data = EmployeeSkill::destroy($data->pluck('id')->toArray());
         }
-        return $request;
-        // $emp_id = $request->id;
-        // $skill = $request->Skill;
-        // print_r($skill);
-        // $data = EmployeeSkill::where('employee_id', $emp_id)
-        // ->get();
-        // if($data->count() > 0){
-        //     $data = EmployeeSkill::destroy($data->pluck('id')->toArray());
-           
-        // }
 
-        // foreach($skill as $sk){
-        //     $addSkill = New EmployeeSkill();
-        //     $addSkill->employee_id = $emp_id;
-        //     $addSkill->skil_id = $sk;
-        //     $addSkill->save();
-            
-
-        // }
-        // //return $addSkill;
-        // $request->session()->flash('message', 'Record was successfully Added!');
-        // return redirect('/employee');
-
-
-        
-
-        
-        
+        foreach($records_data as $skill_id=>$level){
+            echo $skill_id."\n";
+            $addSkill = New EmployeeSkill();
+            $addSkill->employee_id = $emp_id;
+            $addSkill->skil_id = $skill_id;
+            $addSkill->level = $level;
+            $addSkill->save();
+        }
+        $request->session()->flash('message', 'Record was successfully Added!');
+        return redirect('/employee');
     }
     
     public function webGetEmployee(){
@@ -163,6 +142,57 @@ class Employees extends Controller
     }
 
     /* API */
+
+    public function apiShowSkillsForEmployee($id){
+
+        $skills = Employee::find($id);
+        
+        $empDataWithSkill['Employee'] = $skills;
+        $skillId = [];
+        $skillLevel = [];
+        if($skills->count() > 0){
+            $empskills = $skills->skills;
+            $skillCount = $empskills->count();
+            return response()->json([
+                'status'   => 'Success',
+                'totalRecords' => $skillCount, 
+                'data' => $empDataWithSkill
+             ],200);
+            
+        }else{
+            $skillId = [];
+            return response()->json([
+                'status'   => 'error', 
+                'Message'  => 'Empty Records',
+                'data' => []
+             ],200);
+        }
+    }
+
+    public function apiAssignSkillToEmployee(Request $request,$id){
+
+        $emp_id = $id;
+        
+        $records_data = $request->all();
+       
+       // $records_data = $request->except('_token','employee_id');
+        
+        $data = EmployeeSkill::where('employee_id', $emp_id)->get();
+        if($data->count() > 0){
+            $data = EmployeeSkill::destroy($data->pluck('id')->toArray());
+        }
+
+        foreach($records_data as $skill_id=>$level){
+    
+            $addSkill = New EmployeeSkill();
+            $addSkill->employee_id = $emp_id;
+            $addSkill->skil_id = $skill_id;
+            $addSkill->level = $level;
+            $addSkill->save();
+        }
+       return $this->apiShowSkillsForEmployee($id);
+    }
+
     public function apiGetEmployees(){
         $data = Employee::all();
         $count = $data->count();

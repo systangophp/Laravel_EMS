@@ -16,7 +16,8 @@ class CreateSkilEmployeeTable extends Migration
         Schema::create('skil_employee', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('skill_id');                        
+            $table->unsignedBigInteger('skill_id'); 
+            $table->string('level')->nullable();                         
             $table->timestamps();
             
             $table->foreign('employee_id')->references('id')->on('employees');
